@@ -18,10 +18,15 @@ import com.videoqa.challenge.model.VideoMode
 data class LaunchArguments(
     val resetAllState: Boolean = false,
     val resetConsent: Boolean = false,
+    val consentChoice: String? = null,
+    val consentAnalytics: Boolean? = null,
+    val consentPersonalisation: Boolean? = null,
     val contentMode: ContentMode? = null,
     val videoMode: VideoMode? = null,
     val contentDelayMs: Long? = null,
     val videoBufferingMs: Long? = null,
+    val playbackProgressContentId: String? = null,
+    val playbackProgressMs: Long? = null,
 ) {
     companion object {
         fun fromExtras(extras: Bundle?): LaunchArguments {
@@ -33,15 +38,26 @@ data class LaunchArguments(
                 else -> false
             }
 
+            fun optionalFlag(key: String): Boolean? = when (val value = extras.get(key)) {
+                is Boolean -> value
+                is String -> value.toBooleanStrictOrNull()
+                else -> null
+            }
+
             fun long(key: String): Long? = extras.get(key)?.toString()?.toLongOrNull()
 
             return LaunchArguments(
                 resetAllState = flag("resetAllState"),
                 resetConsent = flag("resetConsent"),
+                consentChoice = extras.getString("consentChoice"),
+                consentAnalytics = optionalFlag("consentAnalytics"),
+                consentPersonalisation = optionalFlag("consentPersonalisation"),
                 contentMode = ContentMode.fromRawValue(extras.getString("contentMode")),
                 videoMode = VideoMode.fromRawValue(extras.getString("videoMode")),
                 contentDelayMs = long("contentDelayMs"),
                 videoBufferingMs = long("videoBufferingMs"),
+                playbackProgressContentId = extras.getString("playbackProgressContentId"),
+                playbackProgressMs = long("playbackProgressMs"),
             )
         }
     }

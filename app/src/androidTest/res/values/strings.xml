@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Expected Consent Screen Strings -->
+    <string name="expected_consent_icon_description">PrivacyTip</string>
+    <string name="expected_consent_header">Your privacy choices</string>
+    <string name="expected_consent_subheader">We use a small amount of local data to remember your preferences and improve your experience. Choose how this demo app may handle optional features. You can change this later from the debug options.</string>
+    <string name="expected_consent_accept_all">Accept all</string>
+    <string name="expected_consent_reject_optional">Reject optional</string>
+    <string name="expected_consent_manage_preferences">Manage preferences</string>
+
+    <!-- Expected Preferences Screen Strings -->
+    <string name="expected_preferences_title">Preferences</string>
+    <string name="expected_preferences_analytics">Analytics</string>
+    <string name="expected_preferences_personalisation">Personalised content</string>
+    <string name="expected_preferences_supporting_text">These options only change locally stored values. No data leaves the device in this demo app.</string>
+    <string name="expected_preferences_save">Save preferences</string>
+
+    <!-- Expected Overview / Loading / Error Strings -->
+    <string name="expected_video_toolbar_title">Video</string>
+    <string name="expected_loading_spinner_text">Loading videos…</string>
+    <string name="expected_empty_header">No videos are available</string>
+    <string name="expected_error_header">Something went wrong</string>
+    <string name="expected_error_subhead">We could not load the videos</string>
+    <string name="expected_try_again">Try again</string>
+
+    <!-- Expected Categories -->
+    <string name="expected_category_travel">Travel</string>
+    <string name="expected_category_news">News</string>
+    <string name="expected_category_technology">Technology</string>
+    <string name="expected_category_interviews">Interviews</string>
+
+    <!-- Expected Detail / Player Strings -->
+    <string name="expected_video_preview_cta">Video preview</string>
+    <string name="expected_published_prefix">Published</string>
+    <string name="expected_player_status_playing">Playing</string>
+    <string name="expected_player_status_paused">Paused</string>
+    <string name="expected_player_status_buffering">Buffering</string>
+    <string name="expected_player_status_completed">Completed</string>
+    <string name="expected_player_status_error">Error</string>
+    <string name="expected_player_error_message">Video could not be played</string>
+    <string name="expected_control_button_play">Play</string>
+    <string name="expected_control_button_pause">Pause</string>
+    <string name="expected_control_button_back">Back</string>
+
+    <!-- Expected Timestamps -->
+    <string name="expected_time_00_00">00:00</string>
+    <string name="expected_time_00_27">00:27</string>
+    <string name="expected_time_00_29">00:29</string>
+    <string name="expected_time_00_30">00:30</string>
+</resources>

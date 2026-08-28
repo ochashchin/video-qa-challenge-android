@@ -212,6 +212,7 @@ private fun ContentCard(item: ContentItem, onClick: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(150.dp)
+                .testTag("content_image_${item.id}")
                 .background(Brush.linearGradient(categoryColors(item.category))),
         ) {
             Icon(
@@ -220,7 +221,8 @@ private fun ContentCard(item: ContentItem, onClick: () -> Unit) {
                 tint = Color.White.copy(alpha = 0.85f),
                 modifier = Modifier
                     .size(44.dp)
-                    .align(Alignment.Center),
+                    .align(Alignment.Center)
+                    .testTag("content_icon_${item.id}"),
             )
             Text(
                 text = item.formattedDuration,
@@ -230,7 +232,8 @@ private fun ContentCard(item: ContentItem, onClick: () -> Unit) {
                     .align(Alignment.BottomEnd)
                     .padding(8.dp)
                     .background(Color.Black.copy(alpha = 0.65f), RoundedCornerShape(50))
-                    .padding(horizontal = 8.dp, vertical = 4.dp),
+                    .padding(horizontal = 8.dp, vertical = 4.dp)
+                    .testTag("content_duration_${item.id}"),
             )
         }
 
@@ -246,11 +249,13 @@ private fun ContentCard(item: ContentItem, onClick: () -> Unit) {
                     text = item.category,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.testTag("content_category_${item.id}"),
                 )
                 Text(
                     text = "  ·  ${item.formattedPublishedDate}",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.testTag("content_date_${item.id}"),
                 )
             }
         }

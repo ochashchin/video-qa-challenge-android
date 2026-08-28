@@ -29,6 +29,23 @@ class AppContainer(context: Context, val launchArguments: LaunchArguments) {
             persistence.resetConsent()
             VqcLog.app("Launch extra resetConsent applied")
         }
+
+        // Apply injected consent state from Intent extras if present
+        launchArguments.consentChoice?.let { choice ->
+            persistence.consentChoice = choice
+            persistence.analyticsEnabled = launchArguments.consentAnalytics ?: (choice == "accepted_all")
+            persistence.personalisationEnabled = launchArguments.consentPersonalisation ?: (choice == "accepted_all")
+            VqcLog.app("Launch extra consent applied: $choice (analytics=${persistence.analyticsEnabled}, personalisation=${persistence.personalisationEnabled})")
+        }
+
+        // Apply injected playback progress from Intent extras:
+        // <long name="playback.progress.<contentId>" value="<positionMs>" />
+        launchArguments.playbackProgressContentId?.let { contentId ->
+            launchArguments.playbackProgressMs?.let { positionMs ->
+                persistence.setPlaybackProgressMs(contentId, positionMs)
+                VqcLog.app("Launch extra playback progress applied: $contentId -> ${positionMs}ms")
+            }
+        }
     }
 
     val debugConfiguration = DebugConfiguration(persistence, launchArguments)

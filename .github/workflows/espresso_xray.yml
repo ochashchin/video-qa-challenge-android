@@ -1,0 +1,56 @@
+﻿name: Espresso UI Tests & Xray Report
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+  workflow_dispatch:
+    inputs:
+      test_plan_key:
+        description: 'Jira / Xray Test Plan Key'
+        required: false
+        default: 'VQA-74'
+
+jobs:
+  run-espresso-and-upload-xray:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Ensure Android Emulator is Running
+        shell: cmd
+        run: |
+          powershell.exe -ExecutionPolicy Bypass -File .github/scripts/start_emulator.ps1
+
+      - name: Run Espresso UI Tests
+        shell: cmd
+        run: |
+          set JAVA_HOME=D:\Program Files\Android\Android Studio\jbr
+          set ANDROID_HOME=C:\Users\TechnoPlus\AppData\Local\Android\Sdk
+          set PATH=%JAVA_HOME%\bin;%ANDROID_HOME%\platform-tools;%PATH%
+          
+          echo Checking ADB devices:
+          adb devices
+          
+          echo Running Espresso Tests on Connected Emulator/Device...
+          call gradlew.bat connectedDebugAndroidTest --continue
+
+      - name: Upload Test Results to Xray Cloud
+        if: always()
+        shell: cmd
+        env:
+          XRAY_CLIENT_ID: ${{ secrets.XRAY_CLIENT_ID }}
+          XRAY_CLIENT_SECRET: ${{ secrets.XRAY_CLIENT_SECRET }}
+          TEST_PLAN_KEY: ${{ github.event.inputs.test_plan_key }}
+        run: |
+          powershell.exe -ExecutionPolicy Bypass -File .github/scripts/upload_to_xray.ps1
+
+      - name: Archive Test Results Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: espresso-test-results
+          path: app/build/outputs/androidTest-results/connected/

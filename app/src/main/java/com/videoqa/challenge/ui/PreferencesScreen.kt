@@ -40,9 +40,12 @@ fun PreferencesScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Preferences") },
+                title = { Text("Preferences", modifier = Modifier.testTag("preferences_title")) },
                 navigationIcon = {
-                    IconButton(onClick = onBack) {
+                    IconButton(
+                        onClick = onBack,
+                        modifier = Modifier.testTag("preferences_back_button")
+                    ) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                     }
                 },

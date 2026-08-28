@@ -42,7 +42,9 @@ fun ConsentScreen(
             imageVector = Icons.Default.PrivacyTip,
             contentDescription = null,
             tint = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.size(64.dp),
+            modifier = Modifier
+                .size(64.dp)
+                .testTag("consent_icon"),
         )
 
         Spacer(Modifier.height(24.dp))
@@ -51,6 +53,7 @@ fun ConsentScreen(
             text = "Your privacy choices",
             style = MaterialTheme.typography.headlineMedium,
             textAlign = TextAlign.Center,
+            modifier = Modifier.testTag("consent_header")
         )
 
         Spacer(Modifier.height(16.dp))
@@ -62,6 +65,7 @@ fun ConsentScreen(
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
+            modifier = Modifier.testTag("consent_subheader")
         )
 
         Spacer(Modifier.weight(1f))
